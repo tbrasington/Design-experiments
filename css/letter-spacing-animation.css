@@ -1,0 +1,16 @@
+body
+{
+	font-size: 10px;
+	-webkit-font-smoothing: antialiased;
+	overflow: hidden;
+}
+
+#wrapper{
+	width: auto;
+	overflow: visible;
+  font-family: "brandon-grotesque";
+  font-style: bold;
+  font-size: 32px;
+  text-align: left;
+}
+
