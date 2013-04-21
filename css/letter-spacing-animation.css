@@ -1,13 +1,14 @@
+html,
 body
 {
 	font-size: 10px;
 	-webkit-font-smoothing: antialiased;
 	overflow: hidden;
+	width: 100%;
 }
 
 #wrapper{
 	width: auto;
-	overflow: visible;
   font-family: "brandon-grotesque";
   font-style: bold;
   font-size: 32px;
