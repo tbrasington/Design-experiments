@@ -1,7 +1,10 @@
-canvas
+div
 {
-	position: absolute;
-	top:20px;
-	left:20px;
-	border: 1px solid cyan;
+	width: 300px;
+	
+}
+img
+{
+	position: relative;
+	float: left;
 }

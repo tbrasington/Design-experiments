@@ -1,75 +1,77 @@
 $(document).ready(function()
 {
 
-var canvas = document.createElement('canvas');
-		canvas.width = 500;
-		canvas.height = 150;
-	$("#wrapper").append(canvas)
-	var context = canvas.getContext('2d');
+	var happy_canvas = document.createElement('canvas'),
+		sad_canvas = document.createElement('canvas'),
+		buffer_canvas = document.createElement('canvas');
+		
+		design_div = document.createElement('div');
+			
+		
+	//	$("#wrapper").append(happy_canvas).append(sad_canvas).append(design_div)
+		$("#wrapper").append(design_div)
+
+		var context = happy_canvas.getContext('2d');
+		context.fillStyle="#000";
+		context.font="100px brandon-grotesque";
+		context.fillText("happy", 10, 90);
+		
+		secondary = sad_canvas.getContext('2d');
+		secondary.fillStyle="#000";
+		secondary.font="100px brandon-grotesque";
+		secondary.fillText("sad", 10, 90);
+			
+			
+		var happy_images = get_images(happy_canvas,  happy_canvas.width/6, happy_canvas.height/2);
+		var sad_images = get_images(sad_canvas,  sad_canvas.width/6, sad_canvas.height/2);
+		
+		console.log(happy_images)
+		var mixed = happy_images.concat(sad_images);
+		
+		var shuffleeee = _.shuffle(mixed).slice(0,11);
+		
+		_.each(shuffleeee, function(item)
+		{
+			$(design_div).append(item)	
+		});
+		
+		function get_images(target_canvas, section_width, section_height)
+		{
+			var image_array = [],
+			x_pos = -1, 
+			y_pos = 0;
+			
+			for(var a = 0; a < 12; a++)
+			{
+				image_array[a] = new Image();
+				buffer_canvas.width = section_width;
+				buffer_canvas.height = section_height;
+				
+				if(a<7)
+				{
+					y_pos = 0
+				}
+					else
+				{
+					y_pos = section_height
+				}
+				
+				if(x_pos==6)
+				{
+					x_pos = -1;
+				}
+				
+				x_pos++;
 	
-	context.fillStyle="#000";
-	context.font="100px brandon-grotesque";
-	context.fillText("testing", 10, 90);
-	
-/*
-	// lets get some data
-	var top_left = context.getImageData(0, 0, canvas.width/4, canvas.height/2);
-	canvas.width=canvas.width;
-	
-	
-	 context.save();
-	 context.translate(0, 85);
- 	 context.rotate(135 * Math.PI / 180);
- 	 
- 	 context.putImageData(top_left, 10, 90);
-	
- 	 context.restore();
-*/
+				buffer_canvas.getContext('2d').drawImage(target_canvas, section_width*x_pos, y_pos, section_width, section_height, 0, 0, section_width, section_height);
+				image_array[a].src = buffer_canvas.toDataURL("image/png");
+				
+			}
+			
+			return image_array;
 
-	
-var buffer = document.createElement('canvas');
-buffer.width = canvas.width;
-buffer.height = canvas.height
-
-var width_slice = canvas.width/6;
-var height_slice = canvas.height/2;
-
-
-buffer.getContext('2d').translate(width_slice/2, height_slice/2);
-buffer.getContext('2d').rotate(90*Math.PI/180);
-var w = (width_slice/2)*-1, h =(height_slice/2)*-1;
-buffer.getContext('2d').translate( w, h);
-
-
-buffer.getContext('2d').drawImage(canvas,0,0,width_slice ,height_slice ,0,0,width_slice, height_slice );
-
-buffer.getContext('2d').translate(width_slice/2, height_slice/2);
-buffer.getContext('2d').rotate(90*Math.PI/180);
-var w = (width_slice/2)*-1, h =(height_slice/2)*-1;
-buffer.getContext('2d').translate( w, h);
-
-buffer.getContext('2d').drawImage(canvas,width_slice,0,width_slice ,height_slice ,width_slice,0,width_slice, height_slice );
-
-
-	$("#wrapper").append(buffer)
-$(canvas).hide();
-
-
-	
-	//$('body').append(savedImage)
-/*
-var c= document.createElement('canvas');
-	$("#wrapper").append(c)
-var ctx=c.getContext("2d");
-ctx.fillStyle="red";
-ctx.fillRect(10,10,50,50);
-copy();
-function copy()
-{
-var imgData=ctx.getImageData(10,10,50,50);
-ctx.putImageData(imgData,10,70);
-}
-*/
-
+		}
+			
+		
 });
 
