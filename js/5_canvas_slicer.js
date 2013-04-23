@@ -8,7 +8,6 @@ $(document).ready(function()
 		design_div = document.createElement('div');
 			
 		
-	//	$("#wrapper").append(happy_canvas).append(sad_canvas).append(design_div)
 		$("#wrapper").append(design_div)
 
 		var context = happy_canvas.getContext('2d');
