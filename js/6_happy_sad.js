@@ -17,29 +17,43 @@ $(document).ready(function()
 		sad_canvas.width = $(window).width()
 		sad_canvas.height = $(window).height()
 		
-		$("#wrapper").append(design_div)
-
+		$("#wrapper").append(design_div);
+		
+		var font_size = Math.round($(window).width()/4),
+			block_width = happy_canvas.width/6,
+			block_height = happy_canvas.height/2,
+			slices = 6;
+			
+		if($(window).height() > $(window).width())
+		{
+			font_size = Math.round($(window).height()/2),
+			block_width = happy_canvas.width/3,
+			block_height = happy_canvas.height/2, 
+			slices = 3;
+			
+			$('body').addClass('portrait');
+		}
 		var context = happy_canvas.getContext('2d');
 		context.fillStyle="#000";
-		context.font= "bold " + Math.round($(window).width()/4)+"px brandon-grotesque";
-		context.fillText("happy", 0, Math.round($(window).width()/4));
+		context.font= "bold " + font_size+ "px brandon-grotesque";
+		context.fillText("happy", 0, font_size);
 		
 		secondary = sad_canvas.getContext('2d');
 		secondary.fillStyle="#000";
-		secondary.font= "bold " + Math.round($(window).width()/4)+"px brandon-grotesque";
-		secondary.fillText("sad", 0, Math.round($(window).width()/4));
+		secondary.font= "bold " + font_size +"px brandon-grotesque";
+		secondary.fillText("sad", 0, font_size);
 			 
-		var happy_images_top= get_images(happy_canvas,  happy_canvas.width/6, happy_canvas.height/2, 0);
-		var happy_images_bottom = get_images(happy_canvas,  happy_canvas.width/6, happy_canvas.height/2, happy_canvas.height/2);
+		var happy_images_top= get_images(happy_canvas,  block_width, block_height, 0);
+		var happy_images_bottom = get_images(happy_canvas,  block_width, block_height, block_height);
 		
-		var sad_images_top = get_images(sad_canvas,  sad_canvas.width/6, sad_canvas.height/2,0);
-		var sad_images_bottom = get_images(sad_canvas,  sad_canvas.width/6, sad_canvas.height/2, sad_canvas.height/2);
+		var sad_images_top = get_images(sad_canvas,  block_width, block_height, 0);
+		var sad_images_bottom = get_images(sad_canvas,  block_width, block_height, block_height);
 		
 		var mixed_top = happy_images_top.concat(sad_images_top);
 		var mixed_bottom = happy_images_bottom.concat(sad_images_bottom);
 		
-		var shuffled_top = _.shuffle(mixed_top).slice(0,6)
-		var shuffled_bottom = _.shuffle(mixed_bottom).slice(0,6);
+		var shuffled_top = _.shuffle(mixed_top).slice(0,slices)
+		var shuffled_bottom = _.shuffle(mixed_bottom).slice(0,slices);
 	
 		_.each(shuffled_top, function(item)
 		{
@@ -54,7 +68,7 @@ $(document).ready(function()
 		{
 			var image_array = [];
 			
-			for(var a = 0; a < 6; a++)
+			for(var a = 0; a < slices; a++)
 			{
 				image_array[a] = new Image();
 				buffer_canvas.width = section_width;

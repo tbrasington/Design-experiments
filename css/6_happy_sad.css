@@ -13,3 +13,8 @@ img
 	position: relative;
 	float: left;
 }
+
+body.portrait img
+{
+	width: 33%;
+}
