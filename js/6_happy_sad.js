@@ -1,6 +1,11 @@
 $(document).ready(function()
 {
-
+	
+	var title = 'happy / sad';
+		title = title.split("");
+		title = _.shuffle(title).toString()
+		title = title.replace(",", '')
+		document.title = title;
 	var happy_canvas = document.createElement('canvas'),
 		sad_canvas = document.createElement('canvas'),
 		buffer_canvas = document.createElement('canvas');
